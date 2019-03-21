@@ -7,16 +7,16 @@
 merge_wctiles(biotiles)
 }
 \arguments{
-\item{biotiles}{"List with 0.5 arc min worldclim tiles, either stacks or rasters. Variables may not vary across tiles.}
+\item{biotiles}{"List with 0.5 arc min worldclim tile stacks (or single rasters) (i.e. produced by get_wctiles). Both stacks have to have the same variables in them.}
 }
 \value{
-raster object containing single layer or stack of worldclim variables.
+raster stack (or single raster) containing merged worldclim variable(s).
 }
 \description{
 This function merges tiles downloaded from worldclim into a single raster.
 }
 \details{
-List object required as input is prodcued by \code{get_wctile}.
+raster::merge is used for merging, at default settings. That means that in case of overlaps the cell values of the object that comes first in the sequence are retained. But this shouldn't matter much, because there are no overlaps between worldclim tiles.
 }
 \author{
 Simon Kapitza \email{kapitzas@student.unimelb.edu.au}

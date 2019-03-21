@@ -22,5 +22,5 @@ get_tilenames <- function(bnd){
 
   til <- raster::extract(disaggregate(rs, 20), extent(bnd), fun = unique)
   points <- xyFromCell(rs, which(rs[]%in%til))
-  list(tiles_names[til], points)
+  tiles_names[til]
 }
