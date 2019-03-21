@@ -14,7 +14,7 @@
 #' @export
 
 #Download data
-get_wctiles <- function(tiles, var, path){
+tile_get <- function(tiles, var, path){
 
   if(missing(path)){
     path <- getwd()

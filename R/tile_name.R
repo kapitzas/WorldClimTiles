@@ -7,11 +7,11 @@
 #' @param bnd Spatial object in latlong projection from which extent can be extracted.
 #' @return List with two elements. First element is Character vector of tilenames, second element contains tile centre coordinates.
 #'
-#' @details Function uses extent of input to identify which worldclim tiles are necessary to produce layers for study area. The output can be used in \code{get_wctiles} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
+#' @details Function uses extent of input to identify which worldclim tiles are necessary to produce layers for study area. The output can be used in \code{tile_get} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
 #' @author Simon Kapitza \email{kapitzas@student.unimelb.edu.au}
 #' @export
 
-get_tilenames <- function(bnd){
+tile_name <- function(bnd){
 
   rs <- raster(nrows = 5, ncols = 12, xmn = -180, xmx = 180,
                ymn = -60, ymx = 90)
