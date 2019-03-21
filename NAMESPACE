@@ -3,6 +3,5 @@
 export(get_tilenames)
 export(get_wctiles)
 export(merge_wctiles)
-export(validate_layers)
 import(raster)
 import(sp)
