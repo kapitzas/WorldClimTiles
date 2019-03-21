@@ -12,6 +12,12 @@
 #'
 #' @author Simon Kapitza \email{kapitzas@student.unimelb.edu.au}
 #' @export
+#' @examples
+#' require(raster)
+#' boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries
+#' tilenames <- tile_name(boundary) #Determines names of the worldclim tiles covering France
+#' wctiles <- tile_get(tiles = tilenames, var = "bio") #downloads tiles covering France to working directory
+
 
 #Download data
 tile_get <- function(tiles, var, path){

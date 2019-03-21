@@ -19,6 +19,12 @@ raster object containing list of worldclim tiles.
 \description{
 This function is a wrapper around raster::getData. Provide a character vector with worldclim 0.5 arcmin tile names and those tiles will be downloaded.
 }
+\examples{
+require(raster)
+boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries
+tilenames <- tile_name(boundary) #Determines names of the worldclim tiles covering France
+wctiles <- tile_get(tiles = tilenames, var = "bio") #downloads tiles covering France to working directory
+}
 \author{
 Simon Kapitza \email{kapitzas@student.unimelb.edu.au}
 }

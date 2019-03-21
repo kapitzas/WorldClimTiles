@@ -18,6 +18,13 @@ This function merges tiles downloaded from worldclim into a single raster.
 \details{
 \code{raster::merge} is used for merging, at default settings. That means that in case of overlaps the cell values of the object that comes first in the sequence are retained. But this shouldn't matter much, because there are no overlaps between worldclim tiles.
 }
+\examples{
+require(raster)
+boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries
+tilenames <- tile_name(boundary) #Determines names of the worldclim tiles covering France
+wctiles <- tile_get(tiles = tilenames, var = "bio") #downloads tiles covering France to working directory
+merged <- tile_merge(wctiles)
+}
 \author{
 Simon Kapitza \email{kapitzas@student.unimelb.edu.au}
 }

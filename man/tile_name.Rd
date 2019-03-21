@@ -18,6 +18,11 @@ Get the names and center coordinates of worldclim tiles at 0.5 arc sec.
 \details{
 Function uses extent of input to identify which worldclim tiles are necessary to produce layers for study area. The output can be used in \code{tile_get} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
 }
+\examples{
+require(raster)
+boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries
+tilenames <- tile_name(boundary) #Determines names of the worldclim tiles covering France
+}
 \author{
 Simon Kapitza \email{kapitzas@student.unimelb.edu.au}
 }
