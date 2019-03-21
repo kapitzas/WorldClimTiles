@@ -7,16 +7,16 @@
 get_tilenames(bnd)
 }
 \arguments{
-\item{bnd}{Spatial object from which extent can be extracted.}
+\item{bnd}{Spatial object in latlong projection from which extent can be extracted.}
 }
 \value{
-List of tilenames in accordance with convention and their centre coordinates.
+List with two elements. First element is Character vector of tilenames, second element contains tile centre coordinates.
 }
 \description{
-Function uses extent of input to identify which worldclim tiles are necessary to produce layers for study area.
+Get the names and center coordinates of worldclim tiles at 0.5 arc sec.
 }
 \details{
-The output can be used in \code{get_wctiles} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
+Function uses extent of input to identify which worldclim tiles are necessary to produce layers for study area. The output can be used in \code{get_wctiles} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
 }
 \author{
 Simon Kapitza \email{kapitzas@student.unimelb.edu.au}

@@ -12,7 +12,7 @@
 #' @return raster object containing single layer or stack of GCM predictions of bioclim variables, cropped to extent of \code{bnd}.
 #'
 #' @author Simon Kapitza \email{kapitzas@student.unimelb.edu.au}
-#' @export
+# #' @export
 
 fix_layers <- function(mask_name, path){
   f <- validate_layers(mask_name, path)
