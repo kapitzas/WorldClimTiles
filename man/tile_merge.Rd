@@ -7,24 +7,23 @@
 tile_merge(biotiles)
 }
 \arguments{
-\item{biotiles}{"List with 0.5 arc min worldclim tile stacks (or single rasters) (i.e. produced by get_wctiles). Both stacks have to have the same variables in them.}
+\item{biotiles}{"List with 0.5 arc min WorldClim tile stacks (or single rasters) (i.e. produced by \code{tile_get}). Both stacks have to have the same variables in them.}
 }
 \value{
-raster stack (or single raster) containing merged worldclim variable(s).
+RasterStack or Raster containing merged WorldClim variable(s).
 }
 \description{
-This function merges tiles downloaded from worldclim into a single raster.
+This function merges tiles downloaded from WorldClim into a single raster.
 }
 \details{
-\code{raster::merge} is used for merging, at default settings. That means that in case of overlaps the cell values of the object that comes first in the sequence are retained. But this shouldn't matter much, because there are no overlaps between worldclim tiles.
+\code{raster::merge} is used for merging, at default settings. That means that in case of overlaps the cell values of the object that comes first in the sequence are retained. But this shouldn't matter much, because there are no overlaps between WorldClim tiles.
 }
 \examples{
-require(raster)
 boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries
 tilenames <- tile_name(boundary) #Determines names of the worldclim tiles covering France
 wctiles <- tile_get(tiles = tilenames, var = "bio") #downloads tiles covering France to working directory
 merged <- tile_merge(wctiles)
 }
 \author{
-Simon Kapitza \email{kapitzas@student.unimelb.edu.au}
+Simon Kapitza \email{simon.statecology@gmail.com}
 }

@@ -1,6 +1,6 @@
 #' Load worldclim data.
 #'
-#' This function is a wrapper around raster::getData. Provide a character vector with worldclim 0.5 arcmin tile names and those tiles will be downloaded.
+#' This function is a wrapper for \code{raster::getData}. Provide a character vector with WorldClim 0.5 arcmin tile names and those tiles will be downloaded.
 
 #' @import raster
 #' @import sp
@@ -10,10 +10,9 @@
 #' @param path target path where data is downloaded.
 #' @return raster object containing list of worldclim tiles.
 #'
-#' @author Simon Kapitza \email{kapitzas@student.unimelb.edu.au}
+#' @author Simon Kapitza \email{simon.statecology@gmail.com}
 #' @export
 #' @examples
-#' require(raster)
 #' boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries
 #' tilenames <- tile_name(boundary) #Determines names of the worldclim tiles covering France
 #' wctiles <- tile_get(tiles = tilenames, var = "bio") #downloads tiles covering France to working directory

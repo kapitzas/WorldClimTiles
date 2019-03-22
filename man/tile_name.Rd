@@ -2,7 +2,7 @@
 % Please edit documentation in R/tile_name.R
 \name{tile_name}
 \alias{tile_name}
-\title{Get the names and center coordinates of worldclim tiles at 0.5 arc sec.}
+\title{Get the names of 0.5 arcmin WorldClim tiles.}
 \usage{
 tile_name(bnd)
 }
@@ -10,19 +10,18 @@ tile_name(bnd)
 \item{bnd}{Spatial object in latlong projection from which extent can be extracted.}
 }
 \value{
-List with two elements. First element is Character vector of tilenames, second element contains tile centre coordinates.
+Character vector of tilenames.
 }
 \description{
-Get the names and center coordinates of worldclim tiles at 0.5 arc sec.
+Provide projected spatial features of your study area. The function determines which WorldClim tiles they intersect with and returns the tile names as character vector.
 }
 \details{
-Function uses extent of input to identify which worldclim tiles are necessary to produce layers for study area. The output can be used in \code{tile_get} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
+Function uses extent of input Spatial object to identify which WorldClim tiles are necessary to produce layers for study area. The output can be used in \code{tile_get} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
 }
 \examples{
-require(raster)
 boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries
 tilenames <- tile_name(boundary) #Determines names of the worldclim tiles covering France
 }
 \author{
-Simon Kapitza \email{kapitzas@student.unimelb.edu.au}
+Simon Kapitza \email{simon.statecology.gmail.com}
 }
