@@ -21,6 +21,8 @@ tile_name <- function(bnd){
   rs <- raster(nrows = 5, ncols = 12, xmn = -180, xmx = 180,
                ymn = -60, ymx = 90)
 
+  bnd <- spTransform(bnd, "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+
   rs[] <- 1:length(rs)
   tiles_names <- c(paste0(0, 0:11), paste0(1, 0:11), paste0(2, 0:11), paste0(3, 0:11), paste0(4, 0:11))
 
