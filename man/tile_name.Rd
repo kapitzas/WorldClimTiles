@@ -7,7 +7,7 @@
 tile_name(bnd)
 }
 \arguments{
-\item{bnd}{Spatial object in latlong projection from which extent can be extracted.}
+\item{bnd}{Spatial feature or Raster object.}
 }
 \value{
 Character vector of tilenames.
@@ -16,7 +16,7 @@ Character vector of tilenames.
 Provide projected spatial features of your study area. The function determines which WorldClim tiles they intersect with and returns the tile names as character vector.
 }
 \details{
-Function uses extent of input Spatial object to identify which WorldClim tiles are necessary to produce layers for study area. The output can be used in \code{tile_get} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
+Function uses input to identify which WorldClim tiles are necessary to produce layers for study area. The output can be used in \code{tile_get} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
 }
 \examples{
 boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries

@@ -5,10 +5,10 @@
 #' @import raster
 #' @import sp
 
-#' @param bnd Spatial object in latlong projection from which extent can be extracted.
+#' @param bnd Spatial feature or Raster object.
 #' @return Character vector of tilenames.
 #'
-#' @details Function uses extent of input Spatial object to identify which WorldClim tiles are necessary to produce layers for study area. The output can be used in \code{tile_get} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
+#' @details Function uses input to identify which WorldClim tiles are necessary to produce layers for study area. The output can be used in \code{tile_get} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
 #' @author Simon Kapitza \email{simon.statecology.gmail.com}
 #' @export
 #'
@@ -21,7 +21,14 @@ tile_name <- function(bnd){
   rs <- raster(nrows = 5, ncols = 12, xmn = -180, xmx = 180,
                ymn = -60, ymx = 90)
 
+  if(class(bnd[[1]])%in%c("RasterLayer", "RasterBrick", "RasterStack")){
+    crs_arg <- crs(bnd)
+    bnd <- as(extent(bnd), 'SpatialPolygons')
+    crs(bnd) <- crs_arg
+    rm(crs_arg)
+  }else{
   bnd <- spTransform(bnd, "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
+  }
 
   rs[] <- 1:length(rs)
   tiles_names <- c(paste0(0, 0:11), paste0(1, 0:11), paste0(2, 0:11), paste0(3, 0:11), paste0(4, 0:11))
