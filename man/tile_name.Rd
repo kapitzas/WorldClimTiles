@@ -2,25 +2,29 @@
 % Please edit documentation in R/tile_name.R
 \name{tile_name}
 \alias{tile_name}
-\title{Get the names of 0.5 arcmin WorldClim tiles.}
+\title{Get WorldClim and SRTM tile names.}
 \usage{
-tile_name(bnd)
+tile_name(bnd, name = "worldclim")
 }
 \arguments{
-\item{bnd}{Spatial feature or Raster object.}
+\item{bnd}{Projected spatial feature or raster object.}
+
+\item{name}{Valid values are 'worldclim' and 'srtm'. Default is 'worldclim'}
 }
 \value{
-Character vector of tilenames.
+Character vector of tilenames of WorldClim or SRTM tiles.
 }
 \description{
-Provide projected spatial features of your study area. The function determines which WorldClim tiles they intersect with and returns the tile names as character vector.
+Provide projected Spatial object (can be features or raster) and determine which WorldClim or SRTM tiles your study area intersects with.
 }
 \details{
-Function uses input to identify which WorldClim tiles are necessary to produce layers for study area. The output can be used in \code{tile_get} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
+Function uses the spatial object input to identify WorldClim or SRTM tiles to be downloaded. The output of this function can be used in \code{tile_get()} to download the according data via \code{raster::getData()}.
 }
 \examples{
 boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries
-tilenames <- tile_name(boundary) #Determines names of the worldclim tiles covering France
+
+tilenames <- tile_name(boundary, name = 'worldclim') #Determines names of the worldclim tiles covering France
+srtmtilenames <- tile_name(boundary, name = 'srtm') #Determines names of the srtm tiles covering France
 }
 \author{
 Simon Kapitza \email{simon.statecology.gmail.com}

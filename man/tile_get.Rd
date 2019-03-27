@@ -2,27 +2,33 @@
 % Please edit documentation in R/tile_get.R
 \name{tile_get}
 \alias{tile_get}
-\title{Load worldclim data.}
+\title{Download WorldClim and SRTM data.}
 \usage{
-tile_get(tiles, var, path)
+tile_get(tiles, var, path, name = "worldclim")
 }
 \arguments{
-\item{tiles}{Character vector containing worldclim tile names (0.5 arcmin).}
+\item{tiles}{Character vector. Contains WorldClim (0.5 arcmin) or SRTM (90m) tile names. Tile names can be determined with \code{tile_name()}.}
 
-\item{var}{Which worldclim variable? Valid names are 'tmin', 'tmax', 'prec' and 'bio'.}
+\item{var}{Character. Which worldclim variable? Valid values are 'tmin', 'tmax', 'prec' and 'bio'.}
 
 \item{path}{target path where data is downloaded.}
+
+\item{name}{Valid values are 'worldclim' and 'srtm'. Default is 'worldclim'. If \code{name = 'worldclim'}, \code{var} has to be specified.}
 }
 \value{
 raster object containing list of worldclim tiles.
 }
 \description{
-This function is a wrapper for \code{raster::getData}. Provide a character vector with WorldClim 0.5 arcmin tile names and those tiles will be downloaded.
+This function is a wrapper for \code{raster::getData}. Provide a character vector with tile names for either WorldClim 0.5 arcmin or SRTM 90m and those tiles will be downloaded.
 }
 \examples{
 boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries
-tilenames <- tile_name(boundary) #Determines names of the worldclim tiles covering France
-wctiles <- tile_get(tiles = tilenames, var = "bio") #downloads tiles covering France to working directory
+
+tilenames <- tile_name(boundary, name = 'worldclim') #Determines names of the worldclim tiles covering France
+srtmtilenames <- tile_name(boundary, name = 'srtm') #Determines names of the srtm tiles covering France
+
+wctiles <- tile_get(tiles = tilenames, name = 'srtm', var = "bio") #downloads WorldClim tiles covering France
+srtmtiles <- tile_get(tiles = srtmtilenames, name = 'srtm') #downloads SRTM tiles covering France
 }
 \author{
 Simon Kapitza \email{simon.statecology@gmail.com}

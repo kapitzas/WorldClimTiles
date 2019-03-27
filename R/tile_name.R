@@ -1,25 +1,26 @@
-#' Get the names of 0.5 arcmin WorldClim tiles.
+#' Get WorldClim and SRTM tile names.
 #'
-#'Provide projected spatial features of your study area. The function determines which WorldClim tiles they intersect with and returns the tile names as character vector.
+#'Provide projected Spatial object (can be features or raster) and determine which WorldClim or SRTM tiles your study area intersects with.
 
 #' @import raster
 #' @import sp
 
-#' @param bnd Spatial feature or Raster object.
-#' @return Character vector of tilenames.
-#'
-#' @details Function uses input to identify which WorldClim tiles are necessary to produce layers for study area. The output can be used in \code{tile_get} to download set of worldclim tiles at 0.5 arc sec for merging to study area extent.
+#' @param bnd Projected spatial feature or raster object.
+#' @param name Valid values are 'worldclim' and 'srtm'. Default is 'worldclim'
+#' @return Character vector of tilenames of WorldClim or SRTM tiles.
+#' @details Function uses the spatial object input to identify WorldClim or SRTM tiles to be downloaded. The output of this function can be used in \code{tile_get()} to download the according data via \code{raster::getData()}.
 #' @author Simon Kapitza \email{simon.statecology.gmail.com}
 #' @export
 #'
 #' @examples
 #' boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries
-#' tilenames <- tile_name(boundary) #Determines names of the worldclim tiles covering France
+#'
+#' tilenames <- tile_name(boundary, name = 'worldclim') #Determines names of the worldclim tiles covering France
+#' srtmtilenames <- tile_name(boundary, name = 'srtm') #Determines names of the srtm tiles covering France
 
-tile_name <- function(bnd){
+tile_name <- function(bnd, name = 'worldclim'){
 
-  rs <- raster(nrows = 5, ncols = 12, xmn = -180, xmx = 180,
-               ymn = -60, ymx = 90)
+
 
   if(class(bnd)%in%c("RasterLayer", "RasterBrick", "RasterStack")){
     crs_arg <- crs(bnd)
@@ -29,9 +30,19 @@ tile_name <- function(bnd){
   }
 
   bnd <- spTransform(bnd, "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0")
-  rs[] <- 1:length(rs)
-  tiles_names <- c(paste0(0, 0:11), paste0(1, 0:11), paste0(2, 0:11), paste0(3, 0:11), paste0(4, 0:11))
 
+  if(name == "worldclim"){
+    rs <- raster(nrows = 5, ncols = 12, xmn = -180, xmx = 180,
+                 ymn = -60, ymx = 90)
+    tiles_names <- c(paste0(0, 0:11), paste0(1, 0:11), paste0(2, 0:11), paste0(3, 0:11), paste0(4, 0:11))
+
+  }else if(tolower(name) == "srtm"){
+    rs <- raster(nrows = 24, ncols = 72, xmn = -180, xmx = 180,
+                 ymn = -60, ymx = 60)
+    tiles_names <- as.vector(unlist(as.data.frame(outer(paste0(1:72, "_"), 1:24, FUN = "paste0"))))
+  }
+
+  rs[] <- 1:length(rs)
   til <- raster::extract(rs, bnd, weights = TRUE)
   if(is.numeric(til)) til <- sort(unique(til))
   if(is.list(til)) til <- sort(til[[1]][,1])

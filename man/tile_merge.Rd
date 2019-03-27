@@ -4,10 +4,10 @@
 \alias{tile_merge}
 \title{Merge worldclim data.}
 \usage{
-tile_merge(biotiles)
+tile_merge(tiles)
 }
 \arguments{
-\item{biotiles}{"List with 0.5 arc min WorldClim tile stacks (or single rasters) (i.e. produced by \code{tile_get}). Both stacks have to have the same variables in them.}
+\item{tiles}{"List with 0.5 arc min WorldClim tile stacks (or single rasters) (i.e. produced by \code{tile_get}). Both stacks have to have the same variables in them.}
 }
 \value{
 RasterStack or Raster containing merged WorldClim variable(s).
@@ -20,9 +20,15 @@ This function merges tiles downloaded from WorldClim into a single raster.
 }
 \examples{
 boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries
-tilenames <- tile_name(boundary) #Determines names of the worldclim tiles covering France
-wctiles <- tile_get(tiles = tilenames, var = "bio") #downloads tiles covering France to working directory
-merged <- tile_merge(wctiles)
+
+tilenames <- tile_name(boundary, name = 'worldclim') #Determines names of the worldclim tiles covering France
+srtmtilenames <- tile_name(boundary, name = 'srtm') #Determines names of the srtm tiles covering France
+
+wctiles <- tile_get(tiles = tilenames, name = 'srtm', var = "bio") #downloads WorldClim tiles covering France
+srtmtiles <- tile_get(tiles = srtmtilenames, name = 'srtm') #downloads SRTM tiles covering France
+
+wcmerged <- tile_merge(wctiles)
+srtmmerged <- tile_merge(srtmtiles)
 }
 \author{
 Simon Kapitza \email{simon.statecology@gmail.com}
