@@ -4,10 +4,12 @@
 \alias{tile_merge}
 \title{Merge worldclim data.}
 \usage{
-tile_merge(tiles)
+tile_merge(tiles, fac)
 }
 \arguments{
-\item{tiles}{"List with 0.5 arc min WorldClim tile stacks (or single rasters) (i.e. produced by \code{tile_get}). Both stacks have to have the same variables in them.}
+\item{tiles}{List with 0.5 arc min WorldClim tile stacks (or single rasters) (i.e. produced by \code{tile_get}). Names and number of variables need to match between stacks.}
+
+\item{fac}{Factor by which resolution is changed, see details.}
 }
 \value{
 RasterStack or Raster containing merged WorldClim variable(s).
@@ -16,7 +18,7 @@ RasterStack or Raster containing merged WorldClim variable(s).
 This function merges tiles downloaded from WorldClim into a single raster.
 }
 \details{
-\code{raster::merge} is used for merging, at default settings. That means that in case of overlaps the cell values of the object that comes first in the sequence are retained. But this shouldn't matter much, because there are no overlaps between WorldClim tiles.
+\code{raster::merge} is used for merging, at default settings. That means that in case of overlaps the cell values of the object that comes first in the sequence are retained. Raster resolution can be changed to speed up merging of very high resolution data. For example, when data are SRTM tiles, \code{fac = 10} will resample to a resolution of 0.5 arcmin (bilinear), which corresponds to the resolution of WorldClim data.
 }
 \examples{
 boundary <- getData("GADM", country = "FRA", level = 0) #Downloads France boundaries
@@ -29,6 +31,7 @@ srtmtiles <- tile_get(tiles = srtmtilenames, name = 'srtm') #downloads SRTM tile
 
 wcmerged <- tile_merge(wctiles)
 srtmmerged <- tile_merge(srtmtiles)
+srtmmerged <- tile_merge(srtmtiles, fac = 10)
 }
 \author{
 Simon Kapitza \email{simon.statecology@gmail.com}
