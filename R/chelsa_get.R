@@ -2,7 +2,7 @@
 #'
 #' This function downloads CHELSA V_2.1 climate layers (Karger et al., 2017) into a specified folder.
 
-#' @import utils
+#' @importFrom utils download.file
 
 #' @param target_path Download folder on local machine
 #' @param vars Character string containing the CHELSA variables to be downloaded, can be one or more of "pr", "tas", "tasmax", "tasmin".
