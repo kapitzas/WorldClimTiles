@@ -17,13 +17,13 @@
 #' months <- 1:12
 #' years <- c(1979:1981)
 #' path <- "mypath/"
-#' download_chelsa(target_path, years, vars, months)
+#' chelsa_get(target_path, years, vars, months)
 #'
 #' @references
 #' Karger, D., Conrad, O., Böhner, J. et al. Climatologies at high resolution for the earth’s land surface areas. Sci Data 4, 170122 (2017). https://doi.org/10.1038/sdata.2017.122
 
 
-download_chelsa <- function(target_path, years, vars, months){
+chelsa_get <- function(target_path, years, vars, months){
   timeout_old <- getOption('timeout')
   options(timeout=1000)
   for(year in years){
@@ -33,7 +33,11 @@ download_chelsa <- function(target_path, years, vars, months){
         name <- paste(c("CHELSA", var, month, year, "V.2.1.tif"), collapse = "_")
         source_url <- file.path("https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V2/GLOBAL/monthly", var, name)
         destination <- file.path(target_path, name)
-        download.file(source_url, destination)
+        out <- NULL
+        out <- tryCatch(download.file(source_url, destination), error = function(e) {return(NA)})
+        if(is.na(out)){
+          next
+        }
       }
     }
   }
