@@ -33,10 +33,15 @@ chelsa_get <- function(target_path, years, vars, months){
         name <- paste(c("CHELSA", var, month, year, "V.2.1.tif"), collapse = "_")
         source_url <- file.path("https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V2/GLOBAL/monthly", var, name)
         destination <- file.path(target_path, name)
-        out <- NULL
-        out <- tryCatch(download.file(source_url, destination), error = function(e) {return(NA)})
-        if(is.na(out)){
-          next
+
+        if(!file.exists(destination)){
+          out <- NULL
+          out <- tryCatch(download.file(source_url, destination), error = function(e) {return(NA)})
+          if(is.na(out)){
+            next
+          }else{
+            message(paste0(destination, " already downloaded, skipping to next"))
+          }
         }
       }
     }
