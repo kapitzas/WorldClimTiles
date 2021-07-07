@@ -39,9 +39,9 @@ chelsa_get <- function(target_path, years, vars, months){
           out <- tryCatch(download.file(source_url, destination), error = function(e) {return(NA)})
           if(is.na(out)){
             next
-          }else{
-            message(paste0(destination, " already downloaded, skipping to next"))
           }
+          } else {
+            message(paste0(destination, " already downloaded, skipping to next"))
         }
       }
     }
